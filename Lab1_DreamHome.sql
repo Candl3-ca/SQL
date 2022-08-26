@@ -1,4 +1,4 @@
--- AUTHOER @Candl3_
+-- AUTHOR @Candl3_
 
 SELECT * FROM BRANCH;
 SELECT * FROM STAFF;
