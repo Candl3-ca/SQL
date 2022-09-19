@@ -67,3 +67,22 @@ INSERT INTO ENROLL VALUES('1', 'DB200', 66.3);
 INSERT INTO ENROLL VALUES('2', 'DB100', 66.3);
 INSERT INTO ENROLL VALUES('2', 'DB200', 66.3);
 
+
+
+--- Some more class notes --
+
+insert into copy_student name
+select fname, lname from student
+
+
+update student
+set lname = 'alex'
+where student_id = '100'
+
+delete course
+where course_id = 'db100'
+
+
+insert into enroll values ('100', 'DB100', 78)
+insert into enroll values ('200', 'DB100', 78.5)
+insert into enroll values ('300', 'DB100', 80)
