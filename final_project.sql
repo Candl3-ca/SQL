@@ -63,11 +63,11 @@ INSERT INTO TRIP VALUES ('1238', '2022-08-12', '12:00 PM', 'NO','123450' , GEN_G
 ..................................................................................................................
 --TOURS--
 
-INSERT INTO TOURS VALUES('123456', 'Minute To Visit', '3 MONTHS', 3050, '', '1234');
-INSERT INTO TOURS VALUES('123457', 'Minute To Visit', '4 MONTHS', 4020, '', '1235');
-INSERT INTO TOURS VALUES('123458', 'Minute To Visit', '5 MONTHS', 5600, '', '1236');
-INSERT INTO TOURS VALUES('123459', 'Minute To Visit', '6 MONTHS', 6100, '', '1237');
-INSERT INTO TOURS VALUES('123450', 'Minute To Visit', '7 MONTHS', 7080, '', '1238');
+INSERT INTO TOURS VALUES('123456', 'Minute To Visit', '3 MONTHS', 3050, '4 P.M. 2014-14-22', '1234');
+INSERT INTO TOURS VALUES('123457', 'Minute To Visit', '4 MONTHS', 4020, '8 A.M. 2019-09-11', '1235');
+INSERT INTO TOURS VALUES('123458', 'Minute To Visit', '5 MONTHS', 5600, '1:15 P.M. 2018-10-05', '1236');
+INSERT INTO TOURS VALUES('123459', 'Minute To Visit', '6 MONTHS', 6100, '6:45 A.M. 2017-10-31', '1237');
+INSERT INTO TOURS VALUES('123450', 'Minute To Visit', '7 MONTHS', 7080, '9 A.M 2016-05-02', '1238');
 ..................................................................................................................
 --TOURS-TO-GUIDE--
 
