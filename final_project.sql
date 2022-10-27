@@ -90,7 +90,14 @@ INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Montreal Tour from Quebec
 INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Montmorency Falls from Quebec City', 'Discovering Tour' ,'Take this Montmorency Falls from Quebec City and get the chance to enjoy the best of Quebec City.');
 INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Private Quebec Tour', 'Enjoable Tour', 'Take this Private Quebec Tour and get the chance to enjoy the best of Quebec City.');
 INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Parc de la Chute-Montmorency', 'Adventure/Activities', 'The cable car is the perfect vantage point from which to watch the 83-metre-high waterfall flow into the St. Lawrence River.'); 
-
+..................................................................................................................
+ --Tourists--
+ INSERT INTO TOURISTS VALUES('111222', 'Forty', 'Horty', '4381112222', '112', 'K0G3H6', 'Montreal', 'Saint Bob');
+ INSERT INTO TOURISTS VALUES('111333', 'Mario', 'Carty', '4381113333', '154', 'G5H5D7', 'Montreal', 'Saint Mars');
+ INSERT INTO TOURISTS VALUES('111444', 'Kevin', 'Emile', '4381114444', '168', 'G8W6N7', 'Montreal', 'Saint Part2');
+ INSERT INTO TOURISTS VALUES('111555', 'Hojin', 'Lont', '4381115555', '182', 'E8W4T8', 'Montreal', 'Saint Ontomy');
+ INSERT INTO TOURISTS VALUES('111666', 'Sejin', 'Pont', '4381117777', '194', 'J5K0G5', 'Montreal', 'Saint Marku');
+ ..................................................................................................................
  
  
 CREATE SEQUENCE GENN_LOCATION_ID
