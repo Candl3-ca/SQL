@@ -12,8 +12,15 @@ MAXVALUE 999999;
  CITY VARCHAR(10) NOT NULL,
  ZIPCODE VARCHAR(6) NOT NULL,
  DATE_OF_HIRE DATE,
- IS_QUALIFIED VARCHAR(3) NOT NULL,
- NO_OF_TRIPS VARCHAR(4));
+ IS_QUALIFIED CHAR(3) NOT NULL,
+ NO_OF_TRIPS VARCHAR(4),
+ GROUP BY IS_QUALIFIED);
+ 
+ CREATE INDEX GUIDES_ISQUALIFIED_IDX
+ ON GUIDES (IS_QUALIFIED, TYPE);
+ --CREATING AN INDEX FOR GUIDES SINCE WE WANNA QUICKLY CHECK IF THEY'RE QUALIFIED OR NOT
+ --BY INDEXING THIS TABLE, WE CAN SEE QUALIFIED GUIDES EASILY
+ 
  
  CREATE TABLE TRIP (
  TRIP_ID CHAR(4) PRIMARY KEY, 
@@ -47,11 +54,11 @@ MAXVALUE 999999;
  
  --GUIDS--
 
-INSERT INTO GUIDES VALUES (GEN_GUIDE_ID.NEXTVAL, 'Savannah', 'Mollie', '112', 'Port Tiqua', 'Montreal', 'F2F3D3', '2020-06-01', 'NO', '1', '1234');
+INSERT INTO GUIDES VALUES (GEN_GUIDE_ID.NEXTVAL, 'Savannah', 'Mollie', '112', 'Port Tiqua', 'Montreal', 'F2F3D3', '2020-06-01', 'NO.', '1', '1234');
 INSERT INTO GUIDES VALUES (GEN_GUIDE_ID.NEXTVAL, 'Alfie', 'Ava', '1145', 'Limes Elms', 'La Lynn', 'J3V9D2', '2019-10-11', 'YES', '4', '1235');
 INSERT INTO GUIDES VALUES (GEN_GUIDE_ID.NEXTVAL, 'Christine', 'Scarlet', '1012', 'Gresham Holt', 'Mckuujleigh', 'K3F9H5', '2022-03-04', 'YES', '3', '1236');
 INSERT INTO GUIDES VALUES (GEN_GUIDE_ID.NEXTVAL, 'Eleanor', 'Mary', '1543', 'Whitehouse Links', 'Richtim', 'L3F8H4', '2015-02-09', 'YES', '5', '1237');
-INSERT INTO GUIDES VALUES (GEN_GUIDE_ID.NEXTVAL, 'Melissa', 'Darcie', '1875', 'Evergreen Poplars', 'Bampglens', 'Q9F4N1', '2014-12-01', 'NO', '2', '1238');
+INSERT INTO GUIDES VALUES (GEN_GUIDE_ID.NEXTVAL, 'Melissa', 'Darcie', '1875', 'Evergreen Poplars', 'Bampglens', 'Q9F4N1', '2014-12-01', 'NO.', '2', '1238');
 ..................................................................................................................
 --TRIP--
 
@@ -78,15 +85,15 @@ INSERT INTO TOURS_TO_GUIDE VALUES(GEN_GUIDE_ID.NEXTVAL, '123459');
 INSERT INTO TOURS_TO_GUIDE VALUES(GEN_GUIDE_ID.NEXTVAL, '123450');
 .................................................................................................................. 
  --Locations--
-INSERT INTO LOCATION VALUES('112233', 'Quebec Walking Tour', 'Walking Tour', 'Take this Private Quebec Walking Tour and get the chance to enjoy the best of Quebec City.');
-INSERT INTO LOCATION VALUES('112234', 'Montreal Tour from Quebec City', 'Chilling Tour', 'Join us on this Private Montreal Tour from Ottawa and get the chance to enjoy the historical part of Montreal.');                 
-INSERT INTO LOCATION VALUES('112235', 'Montmorency Falls from Quebec City', 'Discovering Tour' ,'Take this Montmorency Falls from Quebec City and get the chance to enjoy the best of Quebec City.');
-INSERT INTO LOCATION VALUES('112236', 'Private Quebec Tour', 'Enjoable Tour', 'Take this Private Quebec Tour and get the chance to enjoy the best of Quebec City.');
-INSERT INTO LOCATION VALUES('112237', 'Parc de la Chute-Montmorency', 'Adventure/Activities', 'The cable car is the perfect vantage point from which to watch the 83-metre-high waterfall flow into the St. Lawrence River.'); 
+INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Quebec Walking Tour', 'Walking Tour', 'Take this Private Quebec Walking Tour and get the chance to enjoy the best of Quebec City.');
+INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Montreal Tour from Quebec City', 'Chilling Tour', 'Join us on this Private Montreal Tour from Ottawa and get the chance to enjoy the historical part of Montreal.');                 
+INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Montmorency Falls from Quebec City', 'Discovering Tour' ,'Take this Montmorency Falls from Quebec City and get the chance to enjoy the best of Quebec City.');
+INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Private Quebec Tour', 'Enjoable Tour', 'Take this Private Quebec Tour and get the chance to enjoy the best of Quebec City.');
+INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Parc de la Chute-Montmorency', 'Adventure/Activities', 'The cable car is the perfect vantage point from which to watch the 83-metre-high waterfall flow into the St. Lawrence River.'); 
 
  
  
- CREATE SEQUENCE GENN_LOCATION_ID
+CREATE SEQUENCE GENN_LOCATION_ID
 START WITH 11
 INCREMENT BY 11
 NO CYCLE
