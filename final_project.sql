@@ -76,7 +76,14 @@ INSERT INTO TOURS_TO_GUIDE VALUES(GEN_GUIDE_ID.NEXTVAL, '123457');
 INSERT INTO TOURS_TO_GUIDE VALUES(GEN_GUIDE_ID.NEXTVAL, '123458');
 INSERT INTO TOURS_TO_GUIDE VALUES(GEN_GUIDE_ID.NEXTVAL, '123459');
 INSERT INTO TOURS_TO_GUIDE VALUES(GEN_GUIDE_ID.NEXTVAL, '123450');
- 
+.................................................................................................................. 
+ --Locations--
+INSERT INTO LOCATION VALUES('112233', 'Quebec Walking Tour', 'Walking Tour', 'Take this Private Quebec Walking Tour and get the chance to enjoy the best of Quebec City.');
+INSERT INTO LOCATION VALUES('112234', 'Montreal Tour from Quebec City', 'Chilling Tour', 'Join us on this Private Montreal Tour from Ottawa and get the chance to enjoy the historical part of Montreal.');                 
+INSERT INTO LOCATION VALUES('112235', 'Montmorency Falls from Quebec City', 'Discovering Tour' ,'Take this Montmorency Falls from Quebec City and get the chance to enjoy the best of Quebec City.');
+INSERT INTO LOCATION VALUES('112236', 'Private Quebec Tour', 'Enjoable Tour', 'Take this Private Quebec Tour and get the chance to enjoy the best of Quebec City.');
+INSERT INTO LOCATION VALUES('112237', 'Parc de la Chute-Montmorency', 'Adventure/Activities', 'The cable car is the perfect vantage point from which to watch the 83-metre-high waterfall flow into the St. Lawrence River.'); 
+
  
 
  
