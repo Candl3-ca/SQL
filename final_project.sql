@@ -169,6 +169,111 @@ ADD FOREIGN KEY (TOURIST_ID) REFERENCES TOURIST ON DELETE CASCADE;
 
  
 
+ -- //////////////////////////////////////////////////////////////////////////
  
- 
- 
+ /*1. Develop at least 3 complex queries and 2 views. SELECT queries that represent answers
+to likely business questions to be faced by the users of your database system. */
+
+--1.1. SELECT queries that represent answers to likely business questions to be faced by the users of your database system.
+
+
+/* 3 SELECT queries that represent answers
+to likely business questions to be faced by the users of your database system. */
+
+
+
+    --complex query that shows all guides that are connected to tours that are connected to locations that are adventure/activities
+
+
+/*a. For each of these queries, provide a 1-2 sentence, for why that query is relevant and interesting to the owners of the system. */
+
+/*The first query is relevant and interesting to the owners of the system because it shows all the tours that have adventure/activities as one of their locations.
+The second query is relevant and interesting to the owners of the system because it shows all the tours that have Discovering Tour as one of their locations.
+The third query is relevant and interesting to the owners of the system because it shows all the tours that have Private Quebec Tour as one of their locations.*/
+
+
+/*d. In the queries and views, you must demonstrate the uses of aggregate
+ operators, group by clause, order by clause, subqueries and involve table joins*/
+
+
+
+--1.1. making a view that shows the number of tourists in each trip
+CREATE VIEW TOURIST_IN_TRIP AS
+SELECT TRIP_ID, COUNT(TOURIST_ID) AS TOURIST_IN_TRIP
+FROM TRIP_TO_TOURIST
+GROUP BY TRIP_ID;
+
+--1.2. making a view that shows the number of trips in each tour
+CREATE VIEW TRIP_IN_TOUR AS
+SELECT TOURS_ID, COUNT(TRIP_ID) AS TRIP_IN_TOUR
+FROM TRIP
+GROUP BY TOURS_ID;
+
+--  1.3. making a view that shows the number of tours in each guide
+
+CREATE VIEW TOUR_IN_GUIDE AS
+SELECT GUIDE_ID, COUNT(TOURS_ID) AS TOUR_IN_GUIDE
+FROM TOURS
+GROUP BY GUIDE_ID;
+
+
+
+/*b. Motivate and explain at least one view, with at least part of each rationale being
+related to security, or the principle of “need to know” (e.g., a “user” only needs
+access to information concerning them).*/
+
+/*The first view is made to show the number of tourists in each trip. This view is made to show the number of tourists in each trip so that the owner of the system can see how many tourists are in each trip and can make decisions accordingly.*/
+/*The second view is made to show the number of trips in each tour. This view is made to show the number of trips in each tour so that the owner of the system can see how many trips are in each tour and can make decisions accordingly.*/
+
+
+/*Create 2 stored procedures that enact business rules that must be supported by the
+database (for example, to allow the user to insert, delete or update through the stored
+procedures). At least one of the stored procedures must use parameters and use
+conditional logic and exception-handling. Explain the purpose of each of the stored
+procedures.*/
+
+/*The first stored procedure is made to insert a new trip into the database. This stored procedure is made to insert a new trip into the database so that the owner of the system can add a new trip to the database.*/
+
+CREATE TABLE INS_TRIP(
+TRIP_ID CHAR(6),
+TOURS_ID CHAR(6),
+START_DATE DATE,
+END_DATE DATE,
+CONSTRAINT PK_INS_TOURS FOREIGN KEY (TOURS_ID) REFERENCES TOURS ON DELETE CASCADE,
+--SO THAT IT DOES NOT LEAVE ANY TOUR WITHOUT A TRIP (A TOUR NEEDS AT LEAST ONE TRIP)
+CONSTRAINT PK_INS_TRIP PRIMARY KEY(TRIP_ID)
+);
+
+
+ALTER TABLE INS_TRIP
+ADD FOREIGN KEY (TRIP_ID) REFERENCES TRIP ON DELETE CASCADE;
+--SO THAT IT DOES NOT SHOW ANY TRIP WITHOUT A TOUR(ALL TRIPS ARE IN AT LEAST ONE TOUR)
+
+CREATE OR REPLACE PROCEDURE INSERT_TRIP
+AS
+TRIP_ID CHAR(6);
+TOURS_ID CHAR(6);
+START_DATE DATE;
+END_DATE DATE;
+BEGIN
+INSERT INTO INS_TRIP VALUES(TRIP_ID, TOURS_ID, START_DATE, END_DATE);
+END;
+
+
+
+
+/*The second stored procedure is made to insert a new tourist into the database. This stored procedure is made to insert a new tourist into the database so that the owner of the system can add a new tourist to the database.*/
+
+
+
+
+
+
+
+
+/* Write a database trigger that prevents a guide from leading a trip of a tour if the guide is
+not officially qualified to lead a trip of that tour. Imagine that the business rules specify
+that a guide is never, under any circumstance, allowed to lead a trip unless he or she is
+qualified to lead trips of that tour. Your trigger should raise user defined exception.
+Write the appropriate message in the exception-handling section. Test your trigger in all
+cases */
