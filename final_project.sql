@@ -354,3 +354,19 @@ that a guide is never, under any circumstance, allowed to lead a trip unless he 
 qualified to lead trips of that tour. Your trigger should raise user defined exception.
 Write the appropriate message in the exception-handling section. Test your trigger in all
 cases */
+
+
+CREATE OR REPLACE TRIGGER TRIP_TO_TOUR_TRIG
+BEFORE INSERT OR UPDATE OF TOURS_ID, GUIDES_ID ON TRIP
+FOR EACH ROW
+DECLARE
+    VIS_QUALIFIED GUIDES.IS_QUALIFIED%TYPE;
+BEGIN
+    SELECT COUNT(*) INTO VIS_QUALIFIED
+    FROM TRIP JOIN TOURS JOIN TOUR_TO_GUIDES  JOIN GUIDES
+    ON TRIP.TOURS_ID = TOURS.TOURS_ID AND TOURS.TOURS_ID = TOURS_TO_GUIDE.TOURS_ID AND TOURS_TO_GUIDE.GUIDES_ID = GUIDES.GUIDES_ID
+    AND TRIP.TOURS_ID = :NEW.TOURS_ID AND TRIP.GUIDES_ID = :NEW.GUIDES_ID;
+    IF VIS_QUALIFIED = 0 THEN
+            RAISE_APPLICATION_ERROR(-20001, 'GUIDE IS NOT QUALIFIED TO LEAD THIS TOUR');
+    END IF;
+END;
