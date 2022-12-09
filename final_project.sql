@@ -3,9 +3,9 @@ START WITH 000001
 INCREMENT BY 13
 CYCLE
 MAXVALUE 999999;
- 
+
  CREATE TABLE GUIDES (
- GUIDES_ID NUMERIC GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
+ GUIDES_ID NUMERIC GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
  FULL_NAME VARCHAR(30) NOT NULL,
  STREET_NO VARCHAR(5) NOT NULL,
  STREET_NAME VARCHAR(20) NOT NULL,
@@ -14,15 +14,15 @@ MAXVALUE 999999;
  DATE_OF_HIRE DATE,
  IS_QUALIFIED CHAR(3) NOT NULL,
  NO_OF_TRIPS VARCHAR(4));
- 
- CREATE INDEX GUIDES_ISQUALIFIED_IDX
- ON GUIDES (IS_QUALIFIED, TYPE);
+
+ CREATE INDEX GUIDES_ISQUALIFIED_IDX 
+ ON GUIDES (IS_QUALIFIED);
  --CREATING AN INDEX FOR GUIDES SINCE WE WANNA QUICKLY CHECK IF THEY'RE QUALIFIED OR NOT
  --BY INDEXING THIS TABLE, WE CAN SEE QUALIFIED GUIDES EASILY
- 
- 
+
+
  CREATE TABLE TRIP (
- TRIP_ID CHAR(4) PRIMARY KEY, 
+ TRIP_ID CHAR(4) PRIMARY KEY,
  DATE_ DATE,
  TIME VARCHAR(10),
  IS_NEW CHAR(3),
@@ -30,12 +30,12 @@ MAXVALUE 999999;
 
  ALTER TABLE GUIDES
  ADD TRIP_ID CHAR(4);
- 
+
  ALTER TABLE GUIDES
  ADD CONSTRAINT INV_ID FOREIGN KEY(TRIP_ID) REFERENCES TRIP ON DELETE CASCADE; -- SO WE DONT SHOW INFORMATION ABOUT UNAVAILABLE TRIPS
- 
+
  CREATE TABLE TOURS (
- TOURS_ID CHAR(6) PRIMARY KEY, 
+ TOURS_ID CHAR(6) PRIMARY KEY,
  TOUR_NAME VARCHAR(20) UNIQUE,
  LENGTH VARCHAR(10),
  FEE NUMERIC,
@@ -44,13 +44,13 @@ MAXVALUE 999999;
 
  ALTER TABLE TRIP
  ADD TOURS_ID CHAR(6) REFERENCES TOURS;
- 
+
  CREATE TABLE TOURS_TO_GUIDE (
  GUIDES_ID NUMERIC REFERENCES GUIDES,
  TOURS_ID CHAR(6) REFERENCES TOURS,
  PRIMARY KEY(GUIDES_ID, TOURS_ID));
- 
- 
+
+
  --GUIDS--
 
 INSERT INTO GUIDES VALUES (GEN_GUIDE_ID.NEXTVAL, 'Savannah', 'Mollie', '112', 'Port Tiqua', 'Montreal', 'F2F3D3', '2020-06-01', 'NO.', '1', '1234');
@@ -65,7 +65,7 @@ INSERT INTO TRIP VALUES ('1234', '2022-12-12', '12:00 PM', 'YES','123456', GEN_G
 INSERT INTO TRIP VALUES ('1235', '2022-11-12', '12:00 PM', 'YES','123457', GEN_GUIDE_ID.NEXTVAL);
 INSERT INTO TRIP VALUES ('1236', '2022-10-12', '12:00 PM', 'YES','123458' , GEN_GUIDE_ID.NEXTVAL);
 INSERT INTO TRIP VALUES ('1237', '2022-09-12', '12:00 PM', 'NO','123459' , GEN_GUIDE_ID.NEXTVAL);
-INSERT INTO TRIP VALUES ('1238', '2022-08-12', '12:00 PM', 'NO','123450' , GEN_GUIDE_ID.NEXTVAL); 
+INSERT INTO TRIP VALUES ('1238', '2022-08-12', '12:00 PM', 'NO','123450' , GEN_GUIDE_ID.NEXTVAL);
 ..................................................................................................................
 --TOURS--
 
@@ -82,13 +82,13 @@ INSERT INTO TOURS_TO_GUIDE VALUES(GEN_GUIDE_ID.NEXTVAL, '123457');
 INSERT INTO TOURS_TO_GUIDE VALUES(GEN_GUIDE_ID.NEXTVAL, '123458');
 INSERT INTO TOURS_TO_GUIDE VALUES(GEN_GUIDE_ID.NEXTVAL, '123459');
 INSERT INTO TOURS_TO_GUIDE VALUES(GEN_GUIDE_ID.NEXTVAL, '123450');
-.................................................................................................................. 
+..................................................................................................................
  --Locations--
 INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Quebec Walking Tour', 'Walking Tour', 'Take this Private Quebec Walking Tour and get the chance to enjoy the best of Quebec City.');
-INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Montreal Tour from Quebec City', 'Chilling Tour', 'Join us on this Private Montreal Tour from Ottawa and get the chance to enjoy the historical part of Montreal.');                 
+INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Montreal Tour from Quebec City', 'Chilling Tour', 'Join us on this Private Montreal Tour from Ottawa and get the chance to enjoy the historical part of Montreal.');
 INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Montmorency Falls from Quebec City', 'Discovering Tour' ,'Take this Montmorency Falls from Quebec City and get the chance to enjoy the best of Quebec City.');
 INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Private Quebec Tour', 'Enjoable Tour', 'Take this Private Quebec Tour and get the chance to enjoy the best of Quebec City.');
-INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Parc de la Chute-Montmorency', 'Adventure/Activities', 'The cable car is the perfect vantage point from which to watch the 83-metre-high waterfall flow into the St. Lawrence River.'); 
+INSERT INTO LOCATION VALUES(GENN_LOCATION_ID.NEXTVAL, 'Parc de la Chute-Montmorency', 'Adventure/Activities', 'The cable car is the perfect vantage point from which to watch the 83-metre-high waterfall flow into the St. Lawrence River.');
 ..................................................................................................................
  --Tourists--
  INSERT INTO TOURISTS VALUES('111222', 'Forty', 'Horty', '4381112222', '112', 'K0G3H6', 'Montreal', 'Saint Bob');
@@ -113,11 +113,11 @@ INSERT INTO TRIP_TO_TOURIST VALUES ( '1235', '111333');
 INSERT INTO TRIP_TO_TOURIST VALUES ( '1236', '111444');
 INSERT INTO TRIP_TO_TOURIST VALUES ( '1237', '111555');
 INSERT INTO TRIP_TO_TOURIST VALUES ( '1238', '111666');
- 
+
 CREATE SEQUENCE GENN_LOCATION_ID
 START WITH 11
 INCREMENT BY 11
-NO CYCLE
+NOCYCLE
 MAXVALUE 999999;
 
 CREATE TABLE LOCATION(
@@ -146,7 +146,7 @@ ADD FOREIGN KEY (LOCATION_ID) REFERENCES LOCATION ON DELETE CASCADE;
 
 CREATE TABLE TOURIST(
 TOURIST_ID CHAR(4) PRIMARY KEY,
-FNAME VARCHAR(30) NOT NULL, 
+FNAME VARCHAR(30) NOT NULL,
 LNAME VARCHAR(30) NOT NULL,
 PHONE# CHAR(10),
 STREET# VARCHAR(10),
@@ -158,7 +158,7 @@ STREET_NAME VARCHAR(30)
 CREATE TABLE TRIP_TO_TOURIST(
 TRIP_ID CHAR(6),
 TOURIST_ID CHAR(4),
-CONSTRAINT TRIP_ID_FK FOREIGN KEY (TRIP_ID) REFERENCES TRIP ON DELETE CASCADE, 
+CONSTRAINT TRIP_ID_FK FOREIGN KEY (TRIP_ID) REFERENCES TRIP ON DELETE CASCADE,
 --SO THAT THERE IS NO TRIP WITHOUT A TOURIST
 CONSTRAINT PK_TRIP_TO_TOURIST PRIMARY KEY(TRIP_ID,TOURIST_ID)
 );
@@ -167,18 +167,63 @@ ALTER TABLE TRIP_TO_TOURIST
 ADD FOREIGN KEY (TOURIST_ID) REFERENCES TOURIST ON DELETE CASCADE;
 --SO THAT THERE IS NO TOURIST WITHOUT A TRIP
 
- 
+
 
  -- //////////////////////////////////////////////////////////////////////////
- 
+
  /*1. Develop at least 3 complex queries and 2 views. SELECT queries that represent answers
 to likely business questions to be faced by the users of your database system. */
 
 --1.1. SELECT queries that represent answers to likely business questions to be faced by the users of your database system.
 
+--1.1.1. SELECT queries that represent answers to likely business questions to be faced by the users of your database system.
+
+
+--COMPLEX SELECT QUERY 1 (TOURS WITH MORE THAN 3 LOCATIONS AND MORE THAN 2 TOURISTS)
+SELECT TOURS_ID, COUNT(LOCATION_ID) AS NUMBER_OF_LOCATIONS, COUNT(TOURIST_ID) AS NUMBER_OF_TOURISTS
+FROM TOUR_TO_LOCATION NATURAL JOIN TRIP_TO_TOURIST
+GROUP BY TOURS_ID
+HAVING COUNT(LOCATION_ID) > 3 AND COUNT(TOURIST_ID) > 2;
+
+--COMPLEX SELECT QUERY 2 WITH MULTIPLE SELECT STATEMENTS (SELECTING GUIDE NAME WHERE LOCATION IS MONTREAL)
+SELECT GUIDE_ID, FNAME, LNAME
+FROM GUIDE
+WHERE GUIDE_ID IN (SELECT GUIDE_ID
+FROM TOURS
+WHERE TOURS_ID IN (SELECT TOURS_ID
+FROM TOUR_TO_LOCATION
+WHERE LOCATION_ID IN (SELECT LOCATION_ID
+FROM LOCATION
+WHERE CITY = 'Montreal')));
+
+--COMPLEX SELECT QUERY 3 (SELECTING TOURISTS WITH THE MOST TRIPS AND THEIR GUIDE)
+SELECT TOURIST_ID, FNAME, LNAME, GUIDES_ID, COUNT(TRIP_ID) AS NUMBER_OF_TRIPS
+FROM TOURIST NATURAL JOIN TRIP_TO_TOURIST
+GROUP BY TOURIST_ID, GUIDE_ID
+HAVING COUNT(TRIP_ID) = (SELECT MAX(NUMBER_OF_TRIPS)
+FROM (SELECT TOURIST_ID, COUNT(TRIP_ID) AS NUMBER_OF_TRIPS
+FROM TOURIST NATURAL JOIN TRIP_TO_TOURIST
+GROUP BY TOURIST_ID));
+
+-- COMPLEX SELECT QUERY 4 (SELECTING TRIPS WITH THE MOST TOURISTS)
+SELECT TRIP_ID, COUNT(TOURIST_ID) AS NUMBER_OF_TOURISTS
+FROM TRIP_TO_TOURIST
+GROUP BY TRIP_ID
+HAVING COUNT(TOURIST_ID) = (SELECT MAX(NUMBER_OF_TOURISTS)
+FROM (SELECT TRIP_ID, COUNT(TOURIST_ID) AS NUMBER_OF_TOURISTS
+FROM TRIP_TO_TOURIST
+GROUP BY TRIP_ID));
+
+
+
+
+
+
 
 /* 3 SELECT queries that represent answers
 to likely business questions to be faced by the users of your database system. */
+
+
 
 
 
@@ -212,9 +257,9 @@ GROUP BY TOURS_ID;
 --  1.3. making a view that shows the number of tours in each guide
 
 CREATE VIEW TOUR_IN_GUIDE AS
-SELECT GUIDE_ID, COUNT(TOURS_ID) AS TOUR_IN_GUIDE
+SELECT GUIDES_ID, COUNT(TOURS_ID) AS TOUR_IN_GUIDE
 FROM TOURS
-GROUP BY GUIDE_ID;
+GROUP BY GUIDES_ID;
 
 
 
@@ -233,6 +278,18 @@ conditional logic and exception-handling. Explain the purpose of each of the sto
 procedures.*/
 
 /*The first stored procedure is made to insert a new trip into the database. This stored procedure is made to insert a new trip into the database so that the owner of the system can add a new trip to the database.*/
+
+CREATE OR REPLACE PROCEDURE DELETE_TRIP (TRIP_ID TRIP.TRIP_ID%TYPE)
+AS
+BEGIN
+     IF EXISTS (SELECT TRIP_ID FROM TRIP WHERE TRIP_ID = TRIP_ID) THEN
+        DELETE FROM TRIP WHERE TRIP_ID = TRIP_ID;
+    ELSE
+        RAISE_APPLICATION_ERROR(-20001, 'TRIP DOES NOT EXIST');
+    END IF;
+end;
+
+--------------------------------
 
 CREATE TABLE INS_TRIP(
 TRIP_ID CHAR(6),
@@ -262,7 +319,27 @@ END;
 
 
 
-/*The second stored procedure is made to insert a new tourist into the database. This stored procedure is made to insert a new tourist into the database so that the owner of the system can add a new tourist to the database.*/
+--The second stored procedure is made TO DISPLAY ALL THE NAMES OF THE LOCATIONS IN A TOUR.
+CREATE OR REPLACE PROCEDURE DISPLAY_LOCATION (VTOURS_ID TOURS.TOURS_ID%TYPE)
+AS
+BEGIN
+    IF(VTOURS_ID EXISTS) THEN
+    FOR V IN( SELECT LOCATION_ID, CITY, COUNTRY, DESCRIPTION
+    FROM LOCATION NATURAL JOIN TOUR_TO_LOCATION
+    WHERE TOURS_ID = VTOURS_ID) LOOP
+    DBMS_OUTPUT.PUT_LINE(   V.LOCATION_ID || ' ' || V.CITY || ' ' || V.COUNTRY || ' ' || V.DESCRIPTION);
+END LOOP;
+    ELSE
+        RAISE_APPLICATION_ERROR(-20001, 'TOUR DOES NOT EXIST');
+    END IF;
+END;
+
+
+
+
+/*c. Explain the purpose of each of the stored procedures.*/
+--2ND IS TO DELETE A TOURIST FROM THE DATABASE AND THROW AN EXCEPTION IF THE TOURIST IS CONNECTED TO A TRIP
+
 
 
 
