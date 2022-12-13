@@ -315,8 +315,6 @@ that a guide is never, under any circumstance, allowed to lead a trip unless he 
 qualified to lead trips of that tour. Your trigger should raise user defined exception.
 Write the appropriate message in the exception-handling section. Test your trigger in all
 cases */
-
-
 CREATE OR REPLACE TRIGGER GUIDE_QUALIFICATION
 BEFORE INSERT ON TRIP
 FOR EACH ROW
@@ -326,10 +324,11 @@ VTOURS_ID TRIP.TOURS_ID%TYPE;
 BEGIN
 SELECT GUIDES_ID INTO VGUIDE_ID FROM TRIP WHERE GUIDES_ID = :NEW.GUIDES_ID;
 SELECT TOURS_ID INTO VTOURS_ID FROM TRIP WHERE TOURS_ID = :NEW.TOURS_ID;
-IF (VGUIDE_ID IS NOT NULL AND VTOURS_ID IS NOT NULL) THEN
+IF (VGUIDE_ID IS NULL OR VTOURS_ID IS NULL) THEN
     RAISE_APPLICATION_ERROR(-20001, 'GUIDE IS NOT QUALIFIED TO LEAD THIS TOUR');
 END IF;
 END;
+
 
 
 
